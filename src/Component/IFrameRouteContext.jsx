@@ -1,4 +1,6 @@
-import React, { useState, useMemo, useRef } from 'react';
+/* eslint-disable react/prop-types */
+/* eslint-disable react-refresh/only-export-components */
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { NAVIGATION_ROUTES } from './Navigation';
 import { useNavigate } from 'react-router-dom';
 
@@ -19,7 +21,7 @@ const getIFrameRoute = () => {
     )
 };
 
-const IFrameRoute = () => {
+const IsInIFrameRoute = () => {
     return !!getIFrameRoute();
 };
 
@@ -37,7 +39,7 @@ export const IFrameRouteContextProvider = ({ children }) => {
     // Important that it should only be called once.
 
     const iframeSrc = useMemo(getIFrameSource, []);
-    const [iframeVisibility, setIframeVisibility] = useState(IFrameRoute());
+    const [iframeVisibility, setIframeVisibility] = useState(IsInIFrameRoute());
     const navigate = useNavigate();
 
     // --------------------------------------------------------------------------
@@ -74,12 +76,61 @@ export const IFrameRouteContextProvider = ({ children }) => {
             setIframeVisibility(false);
             navigate(path);
         }
-    }
+    };
 
+    const handleBrowserBackAndForwardEvents = () => {
+        if (IsInIFrameRoute()) {
+            if (iFrameRef.current) {
+                // Manually handle IFrame navigation
+                setIframeVisibility(true); // You might delay this to avoid flickering of previous route in hidden iframe
+                const route = getIFrameRoute();
+
+                iFrameRef.current.contentWindow.postMessage(
+                    {
+                        action: IFrameAction.NAVIGATION,
+                        path: route.path,
+                    },
+                    IFRAME_APP_URL
+                );
+            }
+        } else {
+            // BrowserRouter handles the navigation
+            setIframeVisibility(false);
+        }
+    };
+
+    const navigateToMainPage = () => {
+        navigation(NAVIGATION_ROUTES.find(({ path }) => path === "/"));
+    };
+
+    useEffect(() => {
+        if (window.location.pathname === "/") {
+            navigateToMainPage();
+        }
+
+        if (iFrameRef) {
+            iFrameRef.current.onload = () => {
+                window.addEventListener("popstate", handleBrowserBackAndForwardEvents);
+            }
+        }
+        return () => {
+            window.removeEventListener("popstate", handleBrowserBackAndForwardEvents);
+        };
+    }, [])
+
+    const contextProperties = {
+        iFrameRef,
+        iframeVisibility,
+        setIframeVisibility,
+        getIFrameRoute,
+        IsInIFrameRoute,
+        navigation,
+        iframeSrc,
+    };
     return (
-        <div>
-
-        </div>
-    )
+        <IFrameRouterContext.Provider value={contextProperties}>
+            {children}
+        </IFrameRouterContext.Provider>
+    );
 }
 
