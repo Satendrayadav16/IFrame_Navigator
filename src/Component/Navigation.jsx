@@ -1,6 +1,8 @@
-import React, { useContext } from "react";
-import logo from "../assets/react.svg"
+import { useContext } from "react";
+import logo from "../assets/react.svg";
+import { IFrameRouterContext } from "./IFrameRouteContext";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const NAVIGATION_ROUTES = [
     {
         title: "IFrame Route One - Dashboard",
@@ -25,7 +27,7 @@ export const NAVIGATION_ROUTES = [
 ];
 
 export const Navigation = () => {
-    const iFrameRouteContext = useContext(iFrameRouteContext);
+    const iFrameRouteContext = useContext(IFrameRouterContext);
     return (
         <div>
             <ul>
