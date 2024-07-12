@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 export const Layout = ({ children }) => {
     return <div className="layout">{children}</div>;
@@ -19,9 +18,9 @@ const NestedParentRoute = () => (
 
 export const AppRoutes = () => {
     return (
-        <Switch>
+        <Routes>
             <Route exact path="/parentRoute" component={ParentRoute} />
             <Route exact path="/parentRoute/nested" component={NestedParentRoute} />
-        </Switch>
+        </Routes>
     );
 };
