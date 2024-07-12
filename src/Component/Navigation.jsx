@@ -1,8 +1,9 @@
+// eslint-disable-next-line react-refresh/only-export-components
+
 import { useContext } from "react";
 import logo from "../assets/react.svg";
 import { IFrameRouterContext } from "./IFrameRouteContext";
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const NAVIGATION_ROUTES = [
     {
         title: "IFrame Route One - Dashboard",
@@ -35,6 +36,7 @@ export const Navigation = () => {
                     <img src={logo} alt="logo" />
                     <h2>Navigation</h2>
                 </div>
+
                 {NAVIGATION_ROUTES.map((route, index) => (
                     <li
                         key={index}
