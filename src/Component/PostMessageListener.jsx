@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { IFrameAction } from "./IFrameRouteContext";
 
 // In case you want to act upon message recevied from the IFrame.
