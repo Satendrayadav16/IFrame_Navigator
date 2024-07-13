@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { IFrameAction } from "./IFrameRouteContext";
 
-// In case you want to act upon message recevied from the IFrame.
+// In case we want to act upon message recevied from the IFrame.
 export const PostMessageListener = () => {
     useEffect(() => {
         window.addEventListener("message", (event) => {

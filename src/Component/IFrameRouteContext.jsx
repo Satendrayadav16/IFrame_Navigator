@@ -42,11 +42,9 @@ export const IFrameRouteContextProvider = ({ children }) => {
     const [iframeVisibility, setIframeVisibility] = useState(IsInIFrameRoute());
     const navigate = useNavigate();
 
-    // --------------------------------------------------------------------------
     // Navigates our application, handling both parent routes, and IFrame routes.
     // Use this for all app routing.
     // It makes sure to handle IFrame visibility as well.
-    // --------------------------------------------------------------------------
 
     const navigation = ({ path, isIFrame, displayedURL }) => {
         // Stop navigation to the same path.
