@@ -1,18 +1,18 @@
 import './App.css'
-// import { AppRoutes } from './Component/AppRoutes'
-// import { IFrame } from './Component/IFrame'
-// import { Navigation } from './Component/Navigation'
+import { AppRoutes } from './Component/AppRoutes'
+import { IFrame } from './Component/IFrame'
+import { Navigation } from './Component/Navigation'
 
 function App() {
 
   return (
     <>
       <div className="App">
-        {/* <Navigation />
+        <Navigation />
         <div className="content">
           <AppRoutes />
           <IFrame />
-        </div> */}
+        </div>
       </div>
     </>
   )
