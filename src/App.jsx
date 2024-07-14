@@ -8,11 +8,11 @@ function App() {
   return (
     <>
       <div className="App">
-        <Navigation />
+        {/* <Navigation />
         <div className="content">
           <AppRoutes />
           <IFrame />
-        </div>
+        </div> */}
       </div>
     </>
   )
